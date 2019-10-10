@@ -14,7 +14,6 @@
     <packaging>jar</packaging>
 
     <properties>
-        <start-class>${mainClass}</start-class>
         <mainClass>com.github.daggerok.reactivestreams.microprofile.akka.Main</mainClass>
     </properties>
 
@@ -24,31 +23,6 @@
             <artifactId>lightbend-microprofile-reactive-streams-akka</artifactId>
             <version>1.0.0</version>
         </dependency>
-        <!--<dependency>
-            <groupId>org.eclipse.microprofile.reactive-streams-operators</groupId>
-            <artifactId>microprofile-reactive-streams-operators-api</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.microprofile.reactive-streams-operators</groupId>
-            <artifactId>microprofile-reactive-streams-operators-core</artifactId>
-            <version>1.0</version>
-        </dependency>-->
-        <!--<dependency>
-            <groupId>com.typesafe.akka</groupId>
-            <artifactId>akka-actor_2.12</artifactId>
-            <version>2.5.13</version>
-        </dependency>
-        <dependency>
-            <groupId>com.typesafe.akka</groupId>
-            <artifactId>akka-stream_2.12</artifactId>
-            <version>2.5.13</version>
-        </dependency>
-        <dependency>
-            <groupId>com.typesafe.akka</groupId>
-            <artifactId>akka-slf4j_2.12</artifactId>
-            <version>2.5.13</version>
-        </dependency>-->
     </dependencies>
 
     <build>
@@ -63,12 +37,10 @@
                         </goals>
                         <configuration>
                             <transformers>
-                                <transformer
-                                        implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
                                     <resource>reference.conf</resource>
                                 </transformer>
-                                <transformer
-                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <manifestEntries>
                                         <Main-Class>${mainClass}</Main-Class>
                                         <Build-Number>${project.version}</Build-Number>
