@@ -5,6 +5,7 @@
 
     <modules>
         <module>zero-dependencies</module>
+        <module>zero-akka</module>
         <module>akka</module>
     </modules>
 
