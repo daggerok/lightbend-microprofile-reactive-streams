@@ -14,8 +14,8 @@ public class Main {
                                                .map("and "::concat)
                                                .reduce((s1, s2) -> s1 + " " + s2);
         ActorSystem actorSystem = ActorSystem.create();
-        Materializer actorMaterializer = ActorMaterializer.create(actorSystem);
-        source.runForeach(System.out::println, actorMaterializer);
+        Materializer materializer = ActorMaterializer.create(actorSystem);
+        source.runForeach(System.out::println, materializer);
         actorSystem.terminate();
     }
 }
