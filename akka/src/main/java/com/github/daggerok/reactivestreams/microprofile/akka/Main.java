@@ -13,9 +13,9 @@ public class Main {
         Source<String, NotUsed> source = Source.from(Arrays.asList("one", "two", "three", "four", "five"))
                                                .map("and "::concat)
                                                .reduce((s1, s2) -> s1 + " " + s2);
-        ActorSystem sys = ActorSystem.create();
-        Materializer mat = ActorMaterializer.create(sys);
-        source.runForeach(System.out::println, mat);
-        sys.terminate();
+        ActorSystem actorSystem = ActorSystem.create();
+        Materializer actorMaterializer = ActorMaterializer.create(actorSystem);
+        source.runForeach(System.out::println, actorMaterializer);
+        actorSystem.terminate();
     }
 }
