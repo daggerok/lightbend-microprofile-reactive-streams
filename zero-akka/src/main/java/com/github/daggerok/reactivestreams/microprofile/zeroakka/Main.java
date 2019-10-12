@@ -3,23 +3,19 @@ package com.github.daggerok.reactivestreams.microprofile.zeroakka;
 import akka.actor.ActorSystem;
 import akka.stream.ActorMaterializer;
 import akka.stream.Materializer;
-import com.lightbend.microprofile.reactive.streams.akka.AkkaEngine;
-import org.eclipse.microprofile.reactive.streams.operators.ReactiveStreams;
+import akka.stream.javadsl.Sink;
+import akka.stream.javadsl.Source;
 
-import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 
 public class Main {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         ActorSystem actorSystem = ActorSystem.create();
         Materializer materializer = ActorMaterializer.create(actorSystem);
-        AkkaEngine engine = new AkkaEngine(materializer);
-        ReactiveStreams.of("one", "two", "three", "four", "five")
-                       .map("and "::concat)
-                       .reduce((s1, s2) -> s1 + " " + s2)
-                       .run(engine)
-                       .acceptEither(CompletableFuture.supplyAsync(Optional::empty),
-                                     optional -> optional.ifPresent(System.out::println));
+        CompletionStage<String> s = Source.single(1)
+                                          .map(String::valueOf)
+                                          .runWith(Sink.head(), materializer);
+        s.thenAccept(System.out::println);
         actorSystem.terminate();
     }
 }
